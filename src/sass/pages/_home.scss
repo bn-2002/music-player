@@ -1,0 +1,71 @@
+.home-section {
+    width:100%;
+    height:100%;
+    overflow-y:auto;
+    padding: 2rem;
+
+    .carousel {
+        width:100%;
+        height:18rem;
+        overflow: hidden;
+        position: relative;
+        box-shadow: $box-shadow-1;
+
+        img {
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            position: absolute;
+            opacity: 0;
+            transition: 1s;
+            border-radius: .5rem;
+        }
+    
+        .active {
+            opacity: 1;
+        }
+    
+    }
+
+    .title {
+        font-size:1.3rem;
+        margin:1rem 0;
+
+    }
+
+    .playlist-wrapper {
+        width:100%;
+        height:13rem;
+        overflow: hidden;
+        position: relative;
+        box-shadow: $box-shadow-1;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+
+        .playlist-card {
+            flex : 0 0 auto;
+            max-width:10rem;
+            height:90%;
+            display: flex;
+            flex-direction: column;
+            .playlist-song-img {
+                object-fit:cover;
+                height:100%;
+                border-radius: .5rem;
+                margin:.5rem;
+            }
+
+            .playlist-song-name {
+                text-align: center;
+                font-size: 0.7rem;
+                color:$text-color;
+            }
+
+            cursor: pointer;
+        }
+    }
+
+}
+
