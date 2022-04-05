@@ -75,3 +75,17 @@ const changeCarousel = function () {
 setInterval(() => {
     changeCarousel();
 }, 3000);
+
+//music-seek-bar
+var range = document.querySelector('.music-seek-bar')
+var completionBar = document.querySelector('.completionBar');
+
+range.oninput = function() {
+  completionBar.style.width = this.value+'%';
+}
+
+completionBar.addEventListener('click',function(e) {
+    const v = e.clientX / screen.width;
+    range.value = (v * 100);
+    completionBar.style.width = (v * 100) +'%';
+})

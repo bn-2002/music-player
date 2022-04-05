@@ -4,6 +4,67 @@
     bottom: 0;
     left:0;
     width:100%;
-    height:3rem;
+    height:7rem;
     backdrop-filter: blur(50px);
+    transition: all ease 1s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    .seek-bar-container {
+        .music-seek-bar {
+            -webkit-appearance: none;
+            width:100%;
+            height:1rem;
+            background-color: $secondary-color;
+            overflow: hidden;
+            // position: relative;
+            // position: relative;
+    
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                height:1rem;
+                width:2rem;
+                background-color:$primary-color;
+                cursor: pointer;
+                border-radius: .2rem;
+
+            }
+    
+        }
+
+        .completionBar {
+            // position:absolute;
+            height:1rem;
+            width:0rem;
+            background-color:$primary-color;
+            top:0;
+            z-index:0;
+        }
+
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: row;
+        border:3px red solid;
+        width:100%;
+        position: relative;
+        justify-content: center;
+
+        i {
+            font-size:140%;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: row;
+            &>* {
+                margin:.1rem 1rem;
+            }
+        }
+    }
 }
+
