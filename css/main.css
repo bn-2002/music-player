@@ -213,7 +213,7 @@ body {
 .music-player-section .controls .test .volume-controller-container .volume-controller {
   -webkit-appearance: none;
   width: 100%;
-  height: 0.7rem;
+  height: 1.3rem;
   width: 5rem;
   background-color: #000;
   overflow: hidden;
@@ -223,7 +223,7 @@ body {
 
 .music-player-section .controls .test .volume-controller-container .volume-controller::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 0.7rem;
+  height: 1.3rem;
   width: 2rem;
   background-color: #63ff69;
   cursor: pointer;
@@ -232,7 +232,7 @@ body {
 
 .music-player-section .controls .test .volume-controller-container .completionBar-volume {
   position: absolute;
-  height: 0.7rem;
+  height: 1.3rem;
   width: 0rem;
   background-color: #63ff69;
   top: 0.45rem;
