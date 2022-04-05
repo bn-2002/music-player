@@ -1,0 +1,9 @@
+.player-section{
+    background-color: $tertianry-color;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    width:100%;
+    height:3rem;
+    backdrop-filter: blur(50px);
+}
