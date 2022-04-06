@@ -97,10 +97,13 @@ const volumeIcon = document.querySelector('.volume-icon');
 
 volumeIcon.addEventListener('click',function() {
     volumeControllerContainer.classList.toggle('active');
+    volumeIcon.classList.toggle('active');
 })
 
 musicVolumeBarRange.oninput = function() {
   musicVolumeCompletionBar.style.width =( this.value * 4.5)+'rem';
+  audio.volume = musicVolumeBarRange.value;
+
 }
 
 //playlist queue
@@ -109,7 +112,8 @@ const playlist = document.querySelector('.playlist-section');
 const generateMarkup = function(song) {
     return `<div class="queue">
     <div class="queue-cover">
-        <i class="fa fa-play" aria-hidden="true"></i>  
+        <i class="fa fa-pause pause-playlist active" aria-hidden="true"></i>
+        <i class="fa fa-play play-playlist" aria-hidden="true"></i>  
         <img alt="" src="${song.cover}">
     </div>
     <div class="queue-details">
@@ -119,6 +123,25 @@ const generateMarkup = function(song) {
 </div>
 `
 }
+
+
+const playlistPauseBtn = document.querySelector('.pause-playlist');
+const playlistPlayBtn = document.querySelector('.play-playlist');
+
+// playlistPauseBtn.addEventListener('click',function() {
+//     playlistPauseBtn.classList.add('hide');
+//     playlistPlayBtn.classList.remove('hide');
+
+//     console.log(playlistPauseBtn);
+//     console.log(playlistPlayBtn);
+
+// })
+
+
+console.log('lhafjoefr');
+console.log(playlistPauseBtn);
+console.log(playlistPlayBtn);
+
 
 const renderPlaylist = function() {
     songs.forEach(song => {
@@ -139,8 +162,6 @@ musicPlayer.addEventListener('dblclick',function() {
 musicPlayer.addEventListener('touchstart',function() {
     musicPlayer.classList.add('active');
 });
-
-
 
 const backToHomeBtn = document.querySelector('.back-to-home-btn');
 backToHomeBtn.addEventListener('click',function() {
@@ -171,7 +192,10 @@ const currentSongDuration = document.querySelector('.duration');
 const backwardBtn = document.querySelector('.backward-button');
 const playBtn = document.querySelector('.play-button');
 const pauseBtn = document.querySelector('.pause-button');
-const forwardButton = document.querySelector('.forward-button');
+const forwardBtn = document.querySelector('.forward-button');
+const repeatBtn = document.querySelector('.repeat-button');
+const playlistSongs = document.querySelectorAll('.queue');
+
 
 let audio;
 
@@ -201,14 +225,28 @@ const setMusic = function(i) {
     audio = new Audio();
     audio.src = music.src;
 
+    audio.addEventListener('loadedmetadata', function() {
+        currentSongDuration.textContent = formatDuration(audio.duration);
+    });
+    
+
+    currentSongTime.textContent = '00:00';
 
     setTimeout(() => {
         musicSeekBarRange.max = audio.duration;
     },3000)
+
+    playlistSongs.forEach( item => {
+        item.classList.remove('active');
+    });
+
+    playlistSongs[currentMusicIndex].classList.add('active');
+    const pausePlaylist = playlistSongs[currentMusicIndex].querySelector('.pause-playlist');
+    pausePlaylist.classList.add('active');
+    
 }
 
 setMusic(15)
-
 
 const formatDuration = function(time) {
     let  min = Math.floor(time / 60) ;
@@ -221,16 +259,18 @@ const formatDuration = function(time) {
 }
 
 
-audio.addEventListener('loadedmetadata', function() {
-    console.log(audio.duration);
-    console.log(formatDuration(audio.duration));
-    currentSongDuration.textContent = formatDuration(audio.duration);
-});
-
-
 setInterval(() => {
     musicSeekBarRange.value = audio.currentTime;
     currentSongTime.textContent = formatDuration(audio.currentTime);
+    if (currentSongTime.textContent == formatDuration(audio.duration)) {
+       if (repeatBtn.classList.contains('active')) {
+           pauseBtn.click();
+           setMusic(currentMusicIndex);
+           playBtn.click();
+       }  else {
+           forwardBtn.click();
+       }
+    }
 },500)
 
 musicSeekBarRange.addEventListener('change',function() {
@@ -238,15 +278,15 @@ musicSeekBarRange.addEventListener('change',function() {
 })
 
 
-forwardButton.addEventListener('click',function() {
+forwardBtn.addEventListener('click',function() {
     if (currentMusicIndex >= songs.length - 1) {
         currentMusicIndex = 0;
     } else {
         currentMusicIndex ++ ;
     }
-    audio.pause();
+    pauseBtn.click();
     setMusic(currentMusicIndex);
-    audio.play();
+    playBtn.click();
 })
 
 
@@ -256,9 +296,43 @@ backwardBtn.addEventListener('click',function() {
     } else {
         currentMusicIndex -- ;
     }
-    audio.pause();
+    
+    pauseBtn.click();
     setMusic(currentMusicIndex);
-    audio.play();
+    playBtn.click();
 })
 
 
+repeatBtn.addEventListener('click',function() {
+    repeatBtn.classList.toggle('active');
+})
+
+
+/////playlist
+
+playlistSongs.forEach((item,i) => {
+    item.addEventListener('click',function() {
+
+        if (currentMusicIndex === i) {
+
+            const pauseplaylistEl = playlistSongs[currentMusicIndex].querySelector('.pause-playlist');
+            const playPlaylistEl = playlistSongs[currentMusicIndex].querySelector('.play-playlist');
+
+            if (pauseplaylistEl.classList.contains('active')) {
+                pauseBtn.click();
+                pauseplaylistEl.classList.remove('active');
+                playPlaylistEl.classList.add('active');
+            } else {
+                playBtn.click();
+                pauseplaylistEl.classList.add('active');
+                playPlaylistEl.classList.remove('active');
+            }
+        }
+
+        else {
+            pauseBtn.click();
+            setMusic(i);
+            playBtn.click();
+        }
+    })
+})

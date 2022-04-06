@@ -35,6 +35,7 @@
     }
 
     .queue {
+        cursor: pointer;
         display: flex;
         align-items: center;
         box-shadow:$box-shadow-2;
@@ -57,16 +58,29 @@
 
             i {
                 position:absolute;
-                left:1.7rem;
+                left:1.4rem;
                 font-size: 2rem;
                 color:$primary-color;
                 z-index:3;
                 top:1.2rem;
                 display: none;
+            }
 
-                &.active {
-                    display: block;
-                }
+            
+            // .fa-pause.active {
+            //     display: none !important ;
+            //     color:red;
+
+            // }
+
+            // .fa-play.active {
+            //     display: none !important;
+            //     color:pink;
+            // }
+
+
+            .fa-play {
+
             }
 
 
@@ -94,6 +108,10 @@
                 color:$secondary-color-light;
             }
 
+        }
+
+        &.active i.active{
+            display: block;
         }
     }
 }
