@@ -79,19 +79,25 @@ setInterval(() => {
 const musicSeekBarRange = document.querySelector('.music-seek-bar')
 const musicSeekCompletionBar = document.querySelector('.completionBar');
 
-musicSeekBarRange.oninput = function() {
-    musicSeekCompletionBar.style.width = this.value+'%';
-}
+// musicSeekBarRange.oninput = function() {
+//     musicSeekCompletionBar.style.width = this.value+'%';
+// }
 
-musicSeekCompletionBar.addEventListener('click',function(e) {
-    const w = Math.trunc((e.clientX) /(screen.width * 0.9) * 10);
-    musicSeekBarRange.value = (w * 10);
-    musicSeekCompletionBar.style.width = (w * 10) +'%';
-})
+// musicSeekCompletionBar.addEventListener('click',function(e) {
+//     const w = Math.trunc((e.clientX) /(screen.width * 0.9) * 10);
+//     musicSeekBarRange.value = (w * 10);
+//     musicSeekCompletionBar.style.width = (w * 10) +'%';
+// })
 
 //volume controller bar
 const musicVolumeBarRange = document.querySelector('.volume-controller');
 const musicVolumeCompletionBar = document.querySelector('.completionBar-volume');
+const volumeControllerContainer = document.querySelector('.volume-controller-container');
+const volumeIcon = document.querySelector('.volume-icon');
+
+volumeIcon.addEventListener('click',function() {
+    volumeControllerContainer.classList.toggle('active');
+})
 
 musicVolumeBarRange.oninput = function() {
   musicVolumeCompletionBar.style.width =( this.value * 4.5)+'rem';
@@ -167,6 +173,7 @@ const playBtn = document.querySelector('.play-button');
 const pauseBtn = document.querySelector('.pause-button');
 const forwardButton = document.querySelector('.forward-button');
 
+let audio;
 
 //toggle play and pause button
 playBtn.addEventListener('click',function(){
@@ -191,12 +198,16 @@ const setMusic = function(i) {
     currentSongName.textContent = song.name;
     currentSongArtist.textContent = song.artist;
 
+    audio = new Audio();
+    audio.src = music.src;
+
+
     setTimeout(() => {
         musicSeekBarRange.max = audio.duration;
     },3000)
 }
 
-setMusic(3)
+setMusic(15)
 
 
 const formatDuration = function(time) {
@@ -210,12 +221,44 @@ const formatDuration = function(time) {
 }
 
 
-const audio = new Audio();
-audio.src = music.src;
 audio.addEventListener('loadedmetadata', function() {
     console.log(audio.duration);
     console.log(formatDuration(audio.duration));
     currentSongDuration.textContent = formatDuration(audio.duration);
-
 });
+
+
+setInterval(() => {
+    musicSeekBarRange.value = audio.currentTime;
+    currentSongTime.textContent = formatDuration(audio.currentTime);
+},500)
+
+musicSeekBarRange.addEventListener('change',function() {
+    audio.currentTime = musicSeekBarRange.value;
+})
+
+
+forwardButton.addEventListener('click',function() {
+    if (currentMusicIndex >= songs.length - 1) {
+        currentMusicIndex = 0;
+    } else {
+        currentMusicIndex ++ ;
+    }
+    audio.pause();
+    setMusic(currentMusicIndex);
+    audio.play();
+})
+
+
+backwardBtn.addEventListener('click',function() {
+    if (currentMusicIndex < 0) {
+        currentMusicIndex = songs.length - 1;
+    } else {
+        currentMusicIndex -- ;
+    }
+    audio.pause();
+    setMusic(currentMusicIndex);
+    audio.play();
+})
+
 

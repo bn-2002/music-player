@@ -127,16 +127,16 @@
                     }
                 }
         
-                .completionBar-volume {
-                    position:absolute;
-                    height:1.3rem;
-                    width:4.2rem;
-                    background-color:$primary-color;
-                    z-index:0;
-                    opacity:1;
-                    top:0rem;
-                    border-radius: 2rem 0rem 0rem 2rem;
-                }
+                // .completionBar-volume {
+                //     position:absolute;
+                //     height:1.3rem;
+                //     width:4.2rem;
+                //     background-color:$primary-color;
+                //     z-index:0;
+                //     opacity:0.5;
+                //     top:0rem;
+                //     border-radius: 2rem 0rem 0rem 2rem;
+                // }
 
                 &.active {
                     display: block;
