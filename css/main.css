@@ -320,4 +320,90 @@ body {
 .music-player-section .go-to-playlist-btn {
   right: 0;
 }
+
+.playlist-section {
+  height: 100%;
+  width: 100%;
+  background-color: #141414;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
+.playlist-section-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 1rem;
+}
+
+.playlist-section-header .title {
+  font-size: 1.8rem;
+}
+
+.playlist-section-header i {
+  position: absolute;
+  left: 1rem;
+  font-size: 1.5rem;
+}
+
+.playlist-section .queue {
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  justify-content: space-between;
+  padding: 0rem 2rem 0rem 0rem;
+  margin: 0.2rem 0;
+}
+
+.playlist-section .queue .queue-cover {
+  height: 4.4rem;
+  position: relative;
+  padding: 0.3rem;
+}
+
+.playlist-section .queue .queue-cover img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 0.4rem;
+  display: block;
+}
+
+.playlist-section .queue .queue-cover i {
+  position: absolute;
+  left: 1.7rem;
+  font-size: 2rem;
+  color: #63ff69;
+  z-index: 3;
+  top: 1.2rem;
+}
+
+.playlist-section .queue .queue-details {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 440px) {
+  .playlist-section .queue .queue-details {
+    flex-direction: column;
+  }
+}
+
+.playlist-section .queue .queue-details p {
+  margin: 0.3rem;
+}
+
+.playlist-section .queue .queue-details .music-song-name {
+  font-size: 1.1rem;
+}
+
+.playlist-section .queue .queue-details .music-song-artist {
+  font-size: 0.9rem;
+  color: #5a5858;
+}
 /*# sourceMappingURL=main.css.map */

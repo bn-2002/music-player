@@ -1,3 +1,83 @@
 .playlist-section {
-    
+    height:100%;
+    width:100%;
+    background-color:$background-color;
+    position:fixed;
+    z-index: 2;
+    top:0;
+    left:0;
+
+    &-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding:1rem;
+
+        .title {
+            font-size: 1.8rem;
+        }
+
+        i {
+            position: absolute;
+            left:1rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    .queue {
+        display: flex;
+        align-items: center;
+        box-shadow:$box-shadow-2;
+        justify-content: space-between;
+        padding:0rem 2rem 0rem 0rem;
+        margin:0.2rem 0;
+
+        .queue-cover {
+            height:4.4rem;
+            position: relative;
+            padding:0.3rem;
+
+            img {
+                height:100%;
+                width:100%;
+                object-fit:contain;
+                border-radius: 0.4rem;
+                display: block;
+            }
+
+            i {
+                position:absolute;
+                left:1.7rem;
+                font-size: 2rem;
+                color:$primary-color;
+                z-index:3;
+                top:1.2rem;
+            }
+        }
+
+        .queue-details {
+            width:60%;
+            display: flex;
+            justify-content:space-between;
+            align-items: center;
+
+            
+            @media only screen and (max-width:440px) {
+                flex-direction: column;
+            };
+
+            p {
+                margin:0.3rem;
+            }
+            .music-song-name {
+                font-size: 1.1rem;
+            }
+            .music-song-artist {
+                font-size: 0.9rem;
+                color:$secondary-color-light;
+            }
+
+        }
+    }
 }
