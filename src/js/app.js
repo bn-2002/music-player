@@ -130,10 +130,10 @@ const musicPlayer = document.querySelector('.music-player-section');
 musicPlayer.addEventListener('dblclick',function() {
     musicPlayer.classList.add('active');
 });
-
-musicPlayer.addEventListener('click',function() {
+musicPlayer.addEventListener('touchstart',function() {
     musicPlayer.classList.add('active');
-})
+});
+
 
 
 const backToHomeBtn = document.querySelector('.back-to-home-btn');
