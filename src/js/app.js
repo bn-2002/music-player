@@ -209,25 +209,25 @@ const setMusic = function(i) {
 
     audio.addEventListener('loadedmetadata', function() {
         currentSongDuration.textContent = formatDuration(audio.duration);
+        musicSeekBarRange.max = audio.duration;
     });
     
     currentSongTime.textContent = '00:00';
 
     setTimeout(() => {
         musicSeekBarRange.max = audio.duration;
+        currentSongDuration.textContent = formatDuration(audio.duration);
     },3000)
 
     playlistSongs.forEach( item => {
         item.classList.remove('active');
     });
-
     playlistSongs[currentMusicIndex].classList.add('active');
     const pausePlaylist = playlistSongs[currentMusicIndex].querySelector('.pause-playlist');
     pausePlaylist.classList.add('active');
-    
 }
 
-setMusic(3)
+setMusic(5)
 
 const formatDuration = function(time) {
     let  min = Math.floor(time / 60) ;
@@ -250,19 +250,8 @@ setInterval(() => {
            forwardBtn.click();
        }
     }
-
-    // console.log(`musicSeekBarRange.value :  ${musicSeekBarRange.value}`);
-    // console.log(`musicSeekBarRange.max : ${musicSeekBarRange.max}` );
-
-    // console.log( musicSeekbarcontainer.offsetWidth);
-
     const w = (musicSeekBarRange.value * musicSeekbarcontainer.offsetWidth) / musicSeekBarRange.max;
-
-    // console.log('w :' + w);
-
     musicSeekCompletionBar.style.width = (w+5) + 'px';
-
-
 },500)
 
 /////////////////////handle music  range
