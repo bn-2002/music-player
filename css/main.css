@@ -104,6 +104,10 @@ body {
   color: #fff;
 }
 
+.home-section.no-scroll {
+  position: fixed;
+}
+
 .music-player-section {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -235,6 +239,17 @@ body {
   background-color: #63ff69;
   cursor: pointer;
   border-radius: 0rem 2rem 2rem 0;
+}
+
+.music-player-section .controls .volume-items-wrapper .volume-controller-container .completionBar-volume {
+  position: absolute;
+  height: 1.3rem;
+  width: 4.2rem;
+  background-color: #63ff69;
+  z-index: 0;
+  opacity: 1;
+  top: 0rem;
+  border-radius: 2rem 0rem 0rem 2rem;
 }
 
 .music-player-section .controls .volume-items-wrapper .volume-controller-container.active {

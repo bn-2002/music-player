@@ -1,4 +1,5 @@
 import { songs } from "./data.js";
+const homeSection = document.querySelector('.home-section');
 //slider
 const slider1 = document.querySelector('.playlist-wrapper1');
 const slides1 = slider1.children;
@@ -6,8 +7,39 @@ const maxScrollLeft1 = slider1.scrollWidth - slider1.clientWidth;
 const slider2 = document.querySelector('.playlist-wrapper2');
 const slides2 = slider2.children;
 const maxScrollLeft2 = slider2.scrollWidth - slider2.clientWidth;
+//carousel
+const carousel = document.querySelector('.carousel');
+const images = carousel.children;
+//music-seek-bar
+const musicSeekBarRange = document.querySelector('.music-seek-bar')
+const musicSeekCompletionBar = document.querySelector('.completionBar');
+const musicSeekbarcontainer = document.querySelector('.seek-bar-container');
+//volume controller bar
+const musicVolumeBarRange = document.querySelector('.volume-controller');
+const musicVolumeCompletionBar = document.querySelector('.completionBar-volume');
+const volumeControllerContainer = document.querySelector('.volume-controller-container');
+const volumeIcon = document.querySelector('.volume-icon');
+//maximize player section
+const musicPlayer = document.querySelector('.music-player-section');
+//playlist queue
+const playlist = document.querySelector('.playlist-section');
+const backToHomeBtn = document.querySelector('.back-to-home-btn');
+const forwardBtn = document.querySelector('.forward-button');
+const backwardBtn = document.querySelector('.backward-button');
+const repeatBtn = document.querySelector('.repeat-button');
+const playBtn = document.querySelector('.play-button');
+const pauseBtn = document.querySelector('.pause-button');
+const goToPlaylistBtn = document.querySelector('.go-to-playlist-btn');
+const backToPlayerBtn = document.querySelector('.back-to-player-btn');
+//music
+const music = document.getElementById('audio-source');
+const currentSongName = document.querySelector('.current-song-name');
+const currentSongArtist = document.querySelector('.current-song-artist');
+const currentSongCover = document.querySelector('.current-song-cover');
+const currentSongTime = document.querySelector('.current-time');
+const currentSongDuration = document.querySelector('.duration');
 
-
+/////////////////////////////slider autoplay
 function autoPlay(slider,maxScrollLeft) {
     if (slider.scrollLeft > (maxScrollLeft - 1)) {
         slider.scrollLeft -= maxScrollLeft;
@@ -16,7 +48,7 @@ function autoPlay(slider,maxScrollLeft) {
     }    
 }
 
-// //pause slider on hover
+// /////////////////////////pause slider on hover
 const pauseSlider = function(slider,slides,maxScrollLeft) {
     for (let slide of slides) {
         slide.addEventListener('mouseover',()=> {
@@ -53,10 +85,7 @@ pauseSlider(slider1,slides1,maxScrollLeft1);
 
 pauseSlider(slider2,slides2,maxScrollLeft2);
 
-//carousel
-const carousel = document.querySelector('.carousel');
-const images = carousel.children;
-
+////////////////////////change carousel images 
 let carouselImageIndex = 0;
 
 const changeCarousel = function () {
@@ -75,26 +104,15 @@ setInterval(() => {
     changeCarousel();
 }, 3000);
 
-//music-seek-bar
-const musicSeekBarRange = document.querySelector('.music-seek-bar')
-const musicSeekCompletionBar = document.querySelector('.completionBar');
+/////////////////change music completion bar 
+musicSeekCompletionBar.addEventListener('click',function(e) {
+    const width = ((e.clientX * musicSeekbarcontainer.offsetWidth) / screen.width) - 20;
+    musicSeekCompletionBar.style.width = width + 'px';
+    musicSeekBarRange.value = ((width * musicSeekBarRange.max) / musicSeekbarcontainer.offsetWidth);
+    audio.currentTime = ((width * musicSeekBarRange.max) / musicSeekbarcontainer.offsetWidth);
+})
 
-// musicSeekBarRange.oninput = function() {
-//     musicSeekCompletionBar.style.width = this.value+'%';
-// }
-
-// musicSeekCompletionBar.addEventListener('click',function(e) {
-//     const w = Math.trunc((e.clientX) /(screen.width * 0.9) * 10);
-//     musicSeekBarRange.value = (w * 10);
-//     musicSeekCompletionBar.style.width = (w * 10) +'%';
-// })
-
-//volume controller bar
-const musicVolumeBarRange = document.querySelector('.volume-controller');
-const musicVolumeCompletionBar = document.querySelector('.completionBar-volume');
-const volumeControllerContainer = document.querySelector('.volume-controller-container');
-const volumeIcon = document.querySelector('.volume-icon');
-
+///////////////////////////display volume control by click on icon
 volumeIcon.addEventListener('click',function() {
     volumeControllerContainer.classList.toggle('active');
     volumeIcon.classList.toggle('active');
@@ -106,9 +124,7 @@ musicVolumeBarRange.oninput = function() {
 
 }
 
-//playlist queue
-const playlist = document.querySelector('.playlist-section');
-
+//////////////////////render playlist queue
 const generateMarkup = function(song) {
     return `<div class="queue">
     <div class="queue-cover">
@@ -124,25 +140,6 @@ const generateMarkup = function(song) {
 `
 }
 
-
-const playlistPauseBtn = document.querySelector('.pause-playlist');
-const playlistPlayBtn = document.querySelector('.play-playlist');
-
-// playlistPauseBtn.addEventListener('click',function() {
-//     playlistPauseBtn.classList.add('hide');
-//     playlistPlayBtn.classList.remove('hide');
-
-//     console.log(playlistPauseBtn);
-//     console.log(playlistPlayBtn);
-
-// })
-
-
-console.log('lhafjoefr');
-console.log(playlistPauseBtn);
-console.log(playlistPlayBtn);
-
-
 const renderPlaylist = function() {
     songs.forEach(song => {
         const m =  generateMarkup(song);
@@ -152,54 +149,40 @@ const renderPlaylist = function() {
 
 renderPlaylist();
 
-
-//maximize player section
-const musicPlayer = document.querySelector('.music-player-section');
-
+//////////////////////////maximize music player
 musicPlayer.addEventListener('dblclick',function() {
     musicPlayer.classList.add('active');
+    homeSection.classList.add('no-scroll');
 });
+
 musicPlayer.addEventListener('touchstart',function() {
     musicPlayer.classList.add('active');
+    homeSection.classList.add('no-scroll');
+
 });
 
-const backToHomeBtn = document.querySelector('.back-to-home-btn');
+//////////////////////handle music player buttons
 backToHomeBtn.addEventListener('click',function() {
     musicPlayer.classList.remove('active');
+    homeSection.classList.remove('no-scroll');
 })
 
-
-const goToPlaylistBtn = document.querySelector('.go-to-playlist-btn');
 goToPlaylistBtn.addEventListener('click',function() {
     playlist.classList.add('active');
 })
 
-const backToPlayerBtn = document.querySelector('.back-to-player-btn');
 backToPlayerBtn.addEventListener('click',function() {
     playlist.classList.remove('active');
 })
 
-//Music//
+////////////////////play music
 let currentMusicIndex = 0;
-const music = document.getElementById('audio-source');
-const currentSongName = document.querySelector('.current-song-name');
-const currentSongArtist = document.querySelector('.current-song-artist');
-const currentSongCover = document.querySelector('.current-song-cover');
-const currentSongTime = document.querySelector('.current-time');
-const currentSongDuration = document.querySelector('.duration');
 
-//select button
-const backwardBtn = document.querySelector('.backward-button');
-const playBtn = document.querySelector('.play-button');
-const pauseBtn = document.querySelector('.pause-button');
-const forwardBtn = document.querySelector('.forward-button');
-const repeatBtn = document.querySelector('.repeat-button');
 const playlistSongs = document.querySelectorAll('.queue');
-
 
 let audio;
 
-//toggle play and pause button
+///////////////////////handle play and pause buttons
 playBtn.addEventListener('click',function(){
     audio.play();
     playBtn.classList.remove('active');
@@ -217,7 +200,6 @@ const setMusic = function(i) {
     let song = songs[i];
     currentMusicIndex = i;
     music.src = song.path;
-    console.log(song.path);
     currentSongCover.src = song.cover;
     currentSongName.textContent = song.name;
     currentSongArtist.textContent = song.artist;
@@ -229,7 +211,6 @@ const setMusic = function(i) {
         currentSongDuration.textContent = formatDuration(audio.duration);
     });
     
-
     currentSongTime.textContent = '00:00';
 
     setTimeout(() => {
@@ -246,20 +227,18 @@ const setMusic = function(i) {
     
 }
 
-setMusic(15)
+setMusic(3)
 
 const formatDuration = function(time) {
     let  min = Math.floor(time / 60) ;
     min = min < 10 ? `0${min}` : min;
-
     let  sec = Math.floor(time % 60) ;
     sec = sec < 10 ? `0${sec}` : sec;
-
     return `${min}:${sec}`
 }
 
-
 setInterval(() => {
+
     musicSeekBarRange.value = audio.currentTime;
     currentSongTime.textContent = formatDuration(audio.currentTime);
     if (currentSongTime.textContent == formatDuration(audio.duration)) {
@@ -271,13 +250,27 @@ setInterval(() => {
            forwardBtn.click();
        }
     }
+
+    // console.log(`musicSeekBarRange.value :  ${musicSeekBarRange.value}`);
+    // console.log(`musicSeekBarRange.max : ${musicSeekBarRange.max}` );
+
+    // console.log( musicSeekbarcontainer.offsetWidth);
+
+    const w = (musicSeekBarRange.value * musicSeekbarcontainer.offsetWidth) / musicSeekBarRange.max;
+
+    // console.log('w :' + w);
+
+    musicSeekCompletionBar.style.width = (w+5) + 'px';
+
+
 },500)
 
+/////////////////////handle music  range
 musicSeekBarRange.addEventListener('change',function() {
     audio.currentTime = musicSeekBarRange.value;
 })
 
-
+/////////////////////handle music player buttons
 forwardBtn.addEventListener('click',function() {
     if (currentMusicIndex >= songs.length - 1) {
         currentMusicIndex = 0;
@@ -288,7 +281,6 @@ forwardBtn.addEventListener('click',function() {
     setMusic(currentMusicIndex);
     playBtn.click();
 })
-
 
 backwardBtn.addEventListener('click',function() {
     if (currentMusicIndex < 0) {
@@ -302,17 +294,14 @@ backwardBtn.addEventListener('click',function() {
     playBtn.click();
 })
 
-
 repeatBtn.addEventListener('click',function() {
     repeatBtn.classList.toggle('active');
 })
 
-
-/////playlist
+/////////////////playlist quenue
 
 playlistSongs.forEach((item,i) => {
     item.addEventListener('click',function() {
-
         if (currentMusicIndex === i) {
 
             const pauseplaylistEl = playlistSongs[currentMusicIndex].querySelector('.pause-playlist');
@@ -328,7 +317,6 @@ playlistSongs.forEach((item,i) => {
                 playPlaylistEl.classList.remove('active');
             }
         }
-
         else {
             pauseBtn.click();
             setMusic(i);
