@@ -208,16 +208,15 @@ const setMusic = function(i) {
     audio.src = music.src;
 
     audio.addEventListener('loadedmetadata', function() {
-        currentSongDuration.textContent = formatDuration(audio.duration);
-        musicSeekBarRange.max = audio.duration;
+        setTimeout(() => {
+            musicSeekBarRange.max = audio.duration;
+            currentSongDuration.textContent = formatDuration(audio.duration);
+        },3000)
+        // currentSongDuration.textContent = formatDuration(audio.duration);
+        // musicSeekBarRange.max = audio.duration;
     });
     
     currentSongTime.textContent = '00:00';
-
-    setTimeout(() => {
-        musicSeekBarRange.max = audio.duration;
-        currentSongDuration.textContent = formatDuration(audio.duration);
-    },3000)
 
     playlistSongs.forEach( item => {
         item.classList.remove('active');
