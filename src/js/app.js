@@ -122,3 +122,27 @@ const renderPlaylist = function() {
 }
 
 renderPlaylist();
+
+
+//maximize player section
+const musicPlayer = document.querySelector('.music-player-section');
+
+musicPlayer.addEventListener('dblclick',function() {
+    musicPlayer.classList.add('active');
+})
+
+const backToHomeBtn = document.querySelector('.back-to-home-btn');
+backToHomeBtn.addEventListener('click',function() {
+    musicPlayer.classList.remove('active');
+})
+
+
+const goToPlaylistBtn = document.querySelector('.go-to-playlist-btn');
+goToPlaylistBtn.addEventListener('click',function() {
+    playlist.classList.add('active');
+})
+
+const backToPlayerBtn = document.querySelector('.back-to-player-btn');
+backToPlayerBtn.addEventListener('click',function() {
+    playlist.classList.remove('active');
+})

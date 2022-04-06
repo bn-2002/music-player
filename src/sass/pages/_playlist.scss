@@ -7,6 +7,13 @@
     top:0;
     left:0;
     overflow-y: auto;
+    left:100%;
+    transition:all ease-in 0.4s;
+
+    &.active {
+        left:0;
+        transition:all ease-in 0.4s;
+    }
 
     &-header {
         display: flex;
@@ -23,6 +30,7 @@
             position: absolute;
             left:1rem;
             font-size: 1.5rem;
+            cursor: pointer;
         }
     }
 

@@ -112,7 +112,7 @@ body {
   width: 100%;
   height: 3rem;
   backdrop-filter: blur(50px);
-  transition: all ease 1s;
+  transition: all ease 0.5s;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -213,7 +213,7 @@ body {
   left: -1.9rem;
   display: none;
   opacity: 0;
-  transition: 1s;
+  transition: all ease 1s;
   transform: rotate(270deg);
   overflow: hidden;
 }
@@ -251,7 +251,7 @@ body {
 .music-player-section .controls .volume-items-wrapper .volume-controller-container.active {
   display: block;
   opacity: 1;
-  transition: 1s;
+  transition: all ease 1s;
 }
 
 .music-player-section.active .controls {
@@ -268,10 +268,15 @@ body {
   font-size: 2rem;
 }
 
+.music-player-section.active .current-song-cover {
+  display: block;
+  opacity: 1;
+}
+
 .music-player-section .hide {
   display: none;
   opacity: 0;
-  transition: 1s;
+  transition: all ease 1s;
 }
 
 .music-player-section.active .hide {
@@ -304,6 +309,9 @@ body {
   object-fit: contain;
   margin: auto;
   border-radius: 0.5rem;
+  display: none;
+  opacity: 0;
+  transition: all ease 0.5s;
 }
 
 .music-player-section .back-to-home-btn, .music-player-section .go-to-playlist-btn {
@@ -311,6 +319,7 @@ body {
   top: 0;
   margin: 1rem;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .music-player-section .back-to-home-btn {
@@ -330,6 +339,13 @@ body {
   top: 0;
   left: 0;
   overflow-y: auto;
+  left: 100%;
+  transition: all ease-in 0.4s;
+}
+
+.playlist-section.active {
+  left: 0;
+  transition: all ease-in 0.4s;
 }
 
 .playlist-section-header {
@@ -348,6 +364,7 @@ body {
   position: absolute;
   left: 1rem;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .playlist-section .queue {
