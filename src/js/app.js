@@ -1,5 +1,5 @@
+import { songs } from "./data.js";
 //slider
-
 const slider1 = document.querySelector('.playlist-wrapper1');
 const slides1 = slider1.children;
 const maxScrollLeft1 = slider1.scrollWidth - slider1.clientWidth;
@@ -151,3 +151,71 @@ const backToPlayerBtn = document.querySelector('.back-to-player-btn');
 backToPlayerBtn.addEventListener('click',function() {
     playlist.classList.remove('active');
 })
+
+//Music//
+let currentMusicIndex = 0;
+const music = document.getElementById('audio-source');
+const currentSongName = document.querySelector('.current-song-name');
+const currentSongArtist = document.querySelector('.current-song-artist');
+const currentSongCover = document.querySelector('.current-song-cover');
+const currentSongTime = document.querySelector('.current-time');
+const currentSongDuration = document.querySelector('.duration');
+
+//select button
+const backwardBtn = document.querySelector('.backward-button');
+const playBtn = document.querySelector('.play-button');
+const pauseBtn = document.querySelector('.pause-button');
+const forwardButton = document.querySelector('.forward-button');
+
+
+//toggle play and pause button
+playBtn.addEventListener('click',function(){
+    audio.play();
+    playBtn.classList.remove('active');
+    pauseBtn.classList.add('active');
+})
+
+pauseBtn.addEventListener('click',function() {
+    audio.pause();
+    pauseBtn.classList.remove('active');
+    playBtn.classList.add('active');
+})
+
+const setMusic = function(i) {
+    musicSeekBarRange.value = 0;
+    let song = songs[i];
+    currentMusicIndex = i;
+    music.src = song.path;
+    console.log(song.path);
+    currentSongCover.src = song.cover;
+    currentSongName.textContent = song.name;
+    currentSongArtist.textContent = song.artist;
+
+    setTimeout(() => {
+        musicSeekBarRange.max = audio.duration;
+    },3000)
+}
+
+setMusic(3)
+
+
+const formatDuration = function(time) {
+    let  min = Math.floor(time / 60) ;
+    min = min < 10 ? `0${min}` : min;
+
+    let  sec = Math.floor(time % 60) ;
+    sec = sec < 10 ? `0${sec}` : sec;
+
+    return `${min}:${sec}`
+}
+
+
+const audio = new Audio();
+audio.src = music.src;
+audio.addEventListener('loadedmetadata', function() {
+    console.log(audio.duration);
+    console.log(formatDuration(audio.duration));
+    currentSongDuration.textContent = formatDuration(audio.duration);
+
+});
+

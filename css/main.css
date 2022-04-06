@@ -178,6 +178,7 @@ body {
 
 .music-player-section .controls i, .music-player-section .controls span {
   font-size: 130%;
+  cursor: pointer;
 }
 
 .music-player-section .controls span {
