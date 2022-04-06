@@ -165,6 +165,8 @@ musicPlayer.addEventListener('touchstart',function() {
 backToHomeBtn.addEventListener('click',function() {
     musicPlayer.classList.remove('active');
     homeSection.classList.remove('no-scroll');
+    volumeControllerContainer.classList.remove('active');
+    volumeIcon.classList.remove('active');
 })
 
 goToPlaylistBtn.addEventListener('click',function() {
@@ -212,8 +214,6 @@ const setMusic = function(i) {
             musicSeekBarRange.max = audio.duration;
             currentSongDuration.textContent = formatDuration(audio.duration);
         },3000)
-        // currentSongDuration.textContent = formatDuration(audio.duration);
-        // musicSeekBarRange.max = audio.duration;
     });
     
     currentSongTime.textContent = '00:00';
