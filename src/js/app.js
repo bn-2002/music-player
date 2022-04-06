@@ -85,36 +85,16 @@ musicSeekBarRange.oninput = function() {
 }
 
 musicSeekCompletionBar.addEventListener('click',function(e) {
-    const w = (e.clientX / screen.width);
-    musicSeekBarRange.value = (w * 100);
-    musicSeekCompletionBar.style.width = (w * 100) +'%';
+    const w = Math.trunc((e.clientX) /(screen.width * 0.9) * 10);
+    musicSeekBarRange.value = (w * 10);
+    musicSeekCompletionBar.style.width = (w * 10) +'%';
 })
 
-
+//volume controller bar
 const musicVolumeBarRange = document.querySelector('.volume-controller');
 const musicVolumeCompletionBar = document.querySelector('.completionBar-volume');
 
 musicVolumeBarRange.oninput = function() {
-    console.log(this.value);
-  musicVolumeCompletionBar.style.width =( this.value * 4.6)+'rem';
+  musicVolumeCompletionBar.style.width =( this.value * 4.5)+'rem';
 }
 
-musicVolumeCompletionBar.addEventListener('click',function(e) {
-    console.log(musicVolumeBarRange.offsetHeight);
-    console.log(musicVolumeBarRange.getBoundingClientRect().bottom);
-    console.log(musicVolumeBarRange.getBoundingClientRect().bottom - e.clientY);
-    const p = musicVolumeBarRange.getBoundingClientRect().bottom - e.clientY;
-    console.log('p : ' + p); 
-    const percent = p / 100;
-    const  r =  Math.trunc(percent * (percent * musicVolumeBarRange.offsetHeight));
-    musicVolumeBarRange.value = r - 0.5;
-    console.log(r);
-       
-    // musicVolumeCompletionBar.style.width = (r) + 'rem' ;
-
-    // const w = (e.clientY / screen.height);
-    // musicVolumeBarRange.value = (w * 100);
-    // musicVolumeCompletionBar.style.width = (w * 100) +'%';
-
-
-})

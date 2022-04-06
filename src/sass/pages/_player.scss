@@ -25,6 +25,8 @@
                 height:0.5rem;
                 background-color: $secondary-color;
                 overflow: hidden;
+                border-radius: .2rem;
+
         
                 &::-webkit-slider-thumb {
                     -webkit-appearance: none;
@@ -44,6 +46,7 @@
                 top:0.45rem;
                 z-index:0;
                 opacity:1;
+                border-radius: .2rem;
             }
 
             .current-time {
@@ -91,8 +94,6 @@
             }
         }
 
-
-
         .volume-items-wrapper {
             position: relative;
             .volume-controller-container {
@@ -119,7 +120,7 @@
                     &::-webkit-slider-thumb {
                         -webkit-appearance: none;
                         height:1.3rem;
-                        width:0.5rem;
+                        width:1rem;
                         background-color:$primary-color;
                         cursor: pointer;
                         border-radius: 0rem 2rem 2rem 0;
@@ -129,10 +130,10 @@
                 .completionBar-volume {
                     position:absolute;
                     height:1.3rem;
-                    width:4.55rem;
+                    width:4.2rem;
                     background-color:$primary-color;
                     z-index:0;
-                    opacity:0.4;
+                    opacity:1;
                     top:0rem;
                     border-radius: 2rem 0rem 0rem 2rem;
 
