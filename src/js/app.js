@@ -56,7 +56,6 @@ pauseSlider(slider2,slides2,maxScrollLeft2);
 //carousel
 const carousel = document.querySelector('.carousel');
 const images = carousel.children;
-console.log(images);
 
 let carouselImageIndex = 0;
 
@@ -98,3 +97,28 @@ musicVolumeBarRange.oninput = function() {
   musicVolumeCompletionBar.style.width =( this.value * 4.5)+'rem';
 }
 
+//playlist queue
+const playlist = document.querySelector('.playlist-section');
+
+const generateMarkup = function(song) {
+    return `<div class="queue">
+    <div class="queue-cover">
+        <i class="fa fa-play" aria-hidden="true"></i>  
+        <img alt="" src="${song.cover}">
+    </div>
+    <div class="queue-details">
+        <p class="music-song-name">${song.name}</p>
+        <p class="music-song-artist">${song.artist}</p>
+    </div>
+</div>
+`
+}
+
+const renderPlaylist = function() {
+    songs.forEach(song => {
+        const m =  generateMarkup(song);
+        playlist.insertAdjacentHTML("beforeend", m);
+    })
+}
+
+renderPlaylist();

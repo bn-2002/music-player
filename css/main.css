@@ -329,6 +329,7 @@ body {
   z-index: 2;
   top: 0;
   left: 0;
+  overflow-y: auto;
 }
 
 .playlist-section-header {
@@ -379,6 +380,11 @@ body {
   color: #63ff69;
   z-index: 3;
   top: 1.2rem;
+  display: none;
+}
+
+.playlist-section .queue .queue-cover i.active {
+  display: block;
 }
 
 .playlist-section .queue .queue-details {
