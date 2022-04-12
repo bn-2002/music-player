@@ -1,12 +1,7 @@
 @import "abstract/variables";
-@import "abstract/mixin";
-@import "abstract/animations";
 
 @import "base/base";
-@import "base/typography";
 
 @import "pages/home";
 @import "pages/player";
 @import "pages/playlist";
-
-@import "layout/grid";
