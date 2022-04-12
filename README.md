@@ -1,4 +1,4 @@
-# music-player
+# music-player.
 
 https://mymusics.netlify.app/
 
