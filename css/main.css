@@ -78,7 +78,7 @@ body {
   box-shadow: 0 15px 40px var(rgba(0, 0, 0, 0.5));
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
+  overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
 }
 

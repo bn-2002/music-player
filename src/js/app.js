@@ -3,10 +3,8 @@ const homeSection = document.querySelector('.home-section');
 //slider
 const slider1 = document.querySelector('.playlist-wrapper1');
 const slides1 = slider1.children;
-const maxScrollLeft1 = slider1.scrollWidth - slider1.clientWidth;
 const slider2 = document.querySelector('.playlist-wrapper2');
 const slides2 = slider2.children;
-const maxScrollLeft2 = slider2.scrollWidth - slider2.clientWidth;
 //carousel
 const carousel = document.querySelector('.carousel');
 const images = carousel.children;
@@ -39,51 +37,6 @@ const currentSongCover = document.querySelector('.current-song-cover');
 const currentSongTime = document.querySelector('.current-time');
 const currentSongDuration = document.querySelector('.duration');
 
-/////////////////////////////slider autoplay
-function autoPlay(slider,maxScrollLeft) {
-    if (slider.scrollLeft > (maxScrollLeft - 1)) {
-        slider.scrollLeft -= maxScrollLeft;
-    } else {
-        slider.scrollLeft += 1;
-    }    
-}
-
-// /////////////////////////pause slider on hover
-const pauseSlider = function(slider,slides,maxScrollLeft) {
-    for (let slide of slides) {
-        slide.addEventListener('mouseover',()=> {
-            if (slider === slider1) {
-                clearInterval(play1);
-            } else if (slider === slider2) {
-                clearInterval(play2);
-            }
-        });
-        slide.addEventListener('mouseout',()=> {
-            if (slider === slider1) {
-                play1 = setInterval(function() {
-                    autoPlay(slider,maxScrollLeft);
-                },50);
-                return play1;
-            } else if (slider === slider2) { 
-                play2 = setInterval(function() {
-                    autoPlay(slider,maxScrollLeft);
-                },50);
-            }
-        })
-    }    
-}
-
-let play1 = setInterval(function() {
-    autoPlay(slider1,maxScrollLeft1);
-},50);
-
-let play2 = setInterval(function() {
-    autoPlay(slider2,maxScrollLeft2);
-},50);
-
-pauseSlider(slider1,slides1,maxScrollLeft1);
-
-pauseSlider(slider2,slides2,maxScrollLeft2);
 
 ////////////////////////change carousel images 
 let carouselImageIndex = 0;
@@ -312,3 +265,86 @@ playlistSongs.forEach((item,i) => {
         }
     })
 })
+
+
+const renderRecentMusics = function() {
+
+    songs.forEach( song => {
+            const m =`<div class="playlist-card">
+                 <img
+                   class="playlist-song-img"
+                   alt=""
+                   src="${song.cover}"
+                 />
+                 <span class="playlist-song-name">${song.name}</span>
+               </div> `
+            slider1.insertAdjacentHTML("afterbegin",m);
+    })
+}
+
+renderRecentMusics();
+
+const renderMostPlayedMusics = function() {
+    songs.forEach((song) => {
+            const m =`<div class="playlist-card">
+                 <img
+                   class="playlist-song-img"
+                   alt=""
+                   src="${song.cover}"
+                 />
+                 <span class="playlist-song-name">${song.name}</span>
+               </div> `
+               slider2.insertAdjacentHTML("beforeend",m);
+    })
+}
+
+renderMostPlayedMusics();
+
+const maxScrollLeft1 = slider1.scrollWidth - slider1.clientWidth;
+const maxScrollLeft2 = slider2.scrollWidth - slider2.clientWidth;
+
+/////////////////////////////slider autoplay
+function autoPlay(slider,maxScrollLeft) {
+    if (slider.scrollLeft > (maxScrollLeft - 1)) {
+        slider.scrollLeft -= maxScrollLeft;
+    } else {
+        slider.scrollLeft += 1;
+    }    
+}
+
+// /////////////////////////pause slider on hover
+const pauseSlider = function(slider,slides,maxScrollLeft) {
+    for (let slide of slides) {
+        slide.addEventListener('mouseover',()=> {
+            if (slider === slider1) {
+                clearInterval(play1);
+            } else if (slider === slider2) {
+                clearInterval(play2);
+            }
+        });
+        slide.addEventListener('mouseout',()=> {
+            if (slider === slider1) {
+                play1 = setInterval(function() {
+                    autoPlay(slider,maxScrollLeft);
+                },50);
+                return play1;
+            } else if (slider === slider2) { 
+                play2 = setInterval(function() {
+                    autoPlay(slider,maxScrollLeft);
+                },50);
+            }
+        })
+    }    
+}
+
+let play1 = setInterval(function() {
+    autoPlay(slider1,maxScrollLeft1);
+},50);
+
+let play2 = setInterval(function() {
+    autoPlay(slider2,maxScrollLeft2);
+},50);
+
+pauseSlider(slider1,slides1,maxScrollLeft1);
+
+pauseSlider(slider2,slides2,maxScrollLeft2);

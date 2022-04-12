@@ -41,7 +41,7 @@
         box-shadow: $box-shadow-1;
         display: flex;
         flex-wrap: nowrap;
-        overflow-x: auto;
+        overflow-x:scroll;
         -webkit-overflow-scrolling: touch;
 
         .playlist-card {
