@@ -2,4 +2,5 @@
 
 https://mymusics.netlify.app/
 
-![screenshot](https://user-images.githubusercontent.com/71316063/163006771-a6b6b780-108a-4b29-92a3-14d296314651.jpg)
+![screenshot](https://user-images.githubusercontent.com/71316063/163007617-ed0d54b8-bafc-49f4-84b0-fefc8f1373c5.jpg)
+
