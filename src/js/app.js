@@ -270,7 +270,7 @@ playlistSongs.forEach((item,i) => {
 const renderRecentMusics = function() {
 
     songs.forEach( song => {
-            const m =`<div class="playlist-card">
+            const m =`<div data-id="${song.id}" class="playlist-card">
                  <img
                    class="playlist-song-img"
                    alt=""
@@ -286,7 +286,7 @@ renderRecentMusics();
 
 const renderMostPlayedMusics = function() {
     songs.forEach((song) => {
-            const m =`<div class="playlist-card">
+            const m =`<div data-id="${song.id}" class="playlist-card">
                  <img
                    class="playlist-song-img"
                    alt=""
@@ -348,3 +348,14 @@ let play2 = setInterval(function() {
 pauseSlider(slider1,slides1,maxScrollLeft1);
 
 pauseSlider(slider2,slides2,maxScrollLeft2);
+
+
+
+
+document.querySelectorAll('.playlist-card').forEach((item) => {
+    item.addEventListener('click',function() {
+        pauseBtn.click();
+        setMusic(item.getAttribute('data-id'));
+        playBtn.click();
+    })
+})
