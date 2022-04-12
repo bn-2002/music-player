@@ -179,7 +179,7 @@ const setMusic = function(i) {
     pausePlaylist.classList.add('active');
 }
 
-setMusic(5)
+setMusic(13)
 
 const formatDuration = function(time) {
     let  min = Math.floor(time / 60) ;
@@ -266,18 +266,20 @@ playlistSongs.forEach((item,i) => {
     })
 })
 
+const generatePlaylistCard = function(song) {
+    return `<div data-id="${song.id}" class="playlist-card">
+    <img
+      class="playlist-song-img"
+      alt=""
+      src="${song.cover}"
+    />
+    <span class="playlist-song-name">${song.name}</span>
+  </div> `
+}
 
 const renderRecentMusics = function() {
-
     songs.forEach( song => {
-            const m =`<div data-id="${song.id}" class="playlist-card">
-                 <img
-                   class="playlist-song-img"
-                   alt=""
-                   src="${song.cover}"
-                 />
-                 <span class="playlist-song-name">${song.name}</span>
-               </div> `
+            const m = generatePlaylistCard(song);
             slider1.insertAdjacentHTML("afterbegin",m);
     })
 }
@@ -286,15 +288,8 @@ renderRecentMusics();
 
 const renderMostPlayedMusics = function() {
     songs.forEach((song) => {
-            const m =`<div data-id="${song.id}" class="playlist-card">
-                 <img
-                   class="playlist-song-img"
-                   alt=""
-                   src="${song.cover}"
-                 />
-                 <span class="playlist-song-name">${song.name}</span>
-               </div> `
-               slider2.insertAdjacentHTML("beforeend",m);
+            const m =generatePlaylistCard(song);
+            slider2.insertAdjacentHTML("beforeend",m);
     })
 }
 
@@ -350,8 +345,7 @@ pauseSlider(slider1,slides1,maxScrollLeft1);
 pauseSlider(slider2,slides2,maxScrollLeft2);
 
 
-
-
+///////////////////////add event listener to sliders cards
 document.querySelectorAll('.playlist-card').forEach((item) => {
     item.addEventListener('click',function() {
         pauseBtn.click();
